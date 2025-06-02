@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaExclamationTriangle } from 'react-icons/fa'
+import { trackContactFormSubmit } from '@/components/GoogleAnalytics'
 
 interface FormData {
   name: string;
@@ -75,79 +76,74 @@ const Contact = () => {
     }
   }
 
-// Add this to the handleSubmit function in src/components/Contact.tsx
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  
-  // Validate form before submission
-  if (!validateForm()) {
-    return
-  }
-  
-  setIsSubmitting(true)
-  setError('')
-  
-  try {
-    // Send the data to our API endpoint
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     
-    const data = await response.json()
-    
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to submit message')
+    // Validate form before submission
+    if (!validateForm()) {
+      return
     }
     
-    // Track successful form submission in Google Analytics
-    if (typeof window !== 'undefined' && window.gtag) {
-      // Import the tracking function at the top of the file
-      // import { trackContactFormSubmit } from '@/components/GoogleAnalytics'
-      
-      // Track contact form submission
-      trackContactFormSubmit('contact_page')
-      
-      // Also track as a conversion event
-      window.gtag('event', 'conversion', {
-        send_to: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
-        event_category: 'Contact',
-        event_label: 'Contact Form Submission',
-        value: 1
+    setIsSubmitting(true)
+    setError('')
+    
+    try {
+      // Send the data to our API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit message')
+      }
+      
+      // Track successful form submission in Google Analytics
+      if (typeof window !== 'undefined' && window.gtag) {
+        // Track contact form submission
+        trackContactFormSubmit('contact_page')
+        
+        // Also track as a conversion event
+        window.gtag('event', 'conversion', {
+          send_to: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+          event_category: 'Contact',
+          event_label: 'Contact Form Submission',
+          value: 1
+        })
+      }
+      
+      // Clear form and show success
+      setFormData({ name: '', email: '', message: '' })
+      setSuccessMessage("Your message has been sent successfully! I'll get back to you soon to discuss ML opportunities.")
+      setIsSubmitted(true)
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 5000)
+    } catch (err) {
+      // Error handling remains the same...
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Something went wrong. Please try again later.')
+      }
+      
+      // Fallback message if the API fails
+      setSuccessMessage(
+        "While there was an issue with our contact system, " +
+        "you can reach me directly at ismetsemedov@gmail.com to discuss ML collaboration opportunities."
+      )
+      setIsSubmitted(true)
+      
+      console.error('Error submitting form:', err)
+    } finally {
+      setIsSubmitting(false)
     }
-    
-    // Clear form and show success
-    setFormData({ name: '', email: '', message: '' })
-    setSuccessMessage("Your message has been sent successfully! I'll get back to you soon to discuss ML opportunities.")
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
-  } catch (err) {
-    // Error handling remains the same...
-    if (err instanceof Error) {
-      setError(err.message)
-    } else {
-      setError('Something went wrong. Please try again later.')
-    }
-    
-    // Fallback message if the API fails
-    setSuccessMessage(
-      "While there was an issue with our contact system, " +
-      "you can reach me directly at ismetsemedov@gmail.com to discuss ML collaboration opportunities."
-    )
-    setIsSubmitted(true)
-    
-    console.error('Error submitting form:', err)
-  } finally {
-    setIsSubmitting(false)
   }
-}
 
   return (
     <section id="contact" className="py-16 md:py-20 bg-gray-50">
