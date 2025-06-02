@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { defaultMetadata } from '@/lib/seo'
 import { PersonStructuredData, WebsiteStructuredData } from '@/components/StructuredData'
+import ClientOnly from '@/components/ClientOnly'
 import AnalyticsProvider from '@/components/AnalyticsProvider'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 
@@ -39,19 +40,30 @@ export default function RootLayout({
         )}
       </head>
       <body className={`bg-gray-50 text-gray-900 antialiased`}>
-        {/* Add Google Analytics if measurement ID is provided */}
-        {GA_MEASUREMENT_ID && (
-          <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
-        )}
+        {/* Add structured data */}
+        <PersonStructuredData />
+        <WebsiteStructuredData />
         
         {/* Add structured data */}
         <PersonStructuredData />
         <WebsiteStructuredData />
         
-        {/* Add custom analytics provider */}
-        <AnalyticsProvider>
-          {children}
-        </AnalyticsProvider>
+        {/* Add Google Analytics if measurement ID is provided */}
+        {GA_MEASUREMENT_ID && (
+          <ClientOnly>
+            <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+          </ClientOnly>
+        )}
+        
+        {/* Add custom analytics provider wrapped in ClientOnly */}
+        <ClientOnly>
+          <AnalyticsProvider>
+            <></>
+          </AnalyticsProvider>
+        </ClientOnly>
+        
+        {/* Main content */}
+        {children}
       </body>
     </html>
   )

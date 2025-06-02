@@ -15,9 +15,17 @@ const AnalyticsContent = () => {
   const searchParams = useSearchParams()
   const [pageLoadTime, setPageLoadTime] = useState<number>(Date.now())
   const [hasTrackedPageView, setHasTrackedPageView] = useState<boolean>(false)
+  const [isClient, setIsClient] = useState(false)
+
+  // Ensure we're on the client side
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Get session data
   const getSessionData = useCallback(() => {
+    if (!isClient) return { sessionId: '', visitorId: '' }
+    
     // Try to get session ID from cookie, or create a new one
     let sessionId = Cookies.get('session_id')
     let visitorId = Cookies.get('visitor_id')
@@ -33,31 +41,33 @@ const AnalyticsContent = () => {
     }
     
     return { sessionId, visitorId }
-  }, [])
+  }, [isClient])
 
   // Track page view
   const trackPageView = useCallback(async () => {
+    if (!isClient) return
+    
     const { sessionId, visitorId } = getSessionData()
     
     try {
-      // Get UTM parameters
-      const utmSource = searchParams.get('utm_source') || undefined
-      const utmMedium = searchParams.get('utm_medium') || undefined
-      const utmCampaign = searchParams.get('utm_campaign') || undefined
-      const utmTerm = searchParams.get('utm_term') || undefined
-      const utmContent = searchParams.get('utm_content') || undefined
+      // Get UTM parameters safely
+      const utmSource = searchParams?.get('utm_source') || undefined
+      const utmMedium = searchParams?.get('utm_medium') || undefined
+      const utmCampaign = searchParams?.get('utm_campaign') || undefined
+      const utmTerm = searchParams?.get('utm_term') || undefined
+      const utmContent = searchParams?.get('utm_content') || undefined
       
       // Get page title
-      const pageTitle = document.title
+      const pageTitle = typeof document !== 'undefined' ? document.title : ''
 
       // Get referrer
-      const referrer = document.referrer
+      const referrer = typeof document !== 'undefined' ? document.referrer : ''
       
       // Get screen resolution
-      const screenResolution = `${window.screen.width}x${window.screen.height}`
+      const screenResolution = typeof window !== 'undefined' ? `${window.screen.width}x${window.screen.height}` : ''
       
       // Get language
-      const language = navigator.language
+      const language = typeof navigator !== 'undefined' ? navigator.language : ''
       
       // Send data to the API endpoint
       await fetch('/api/analytics/track', {
@@ -77,7 +87,7 @@ const AnalyticsContent = () => {
           utmCampaign,
           utmTerm,
           utmContent,
-          userAgent: navigator.userAgent,
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
           screenResolution,
           language,
         }),
@@ -87,11 +97,11 @@ const AnalyticsContent = () => {
     } catch (error) {
       console.error('Error tracking page view:', error)
     }
-  }, [getSessionData, pathname, searchParams])
+  }, [getSessionData, pathname, searchParams, isClient])
 
   // Track user leaving the page
   const trackPageExit = useCallback(async () => {
-    if (!hasTrackedPageView) return
+    if (!hasTrackedPageView || !isClient) return
     
     const { sessionId } = getSessionData()
     const durationMs = Date.now() - pageLoadTime
@@ -106,17 +116,19 @@ const AnalyticsContent = () => {
           sessionId,
           eventType: 'page_exit',
           pagePath: pathname,
-          pageTitle: document.title,
+          pageTitle: typeof document !== 'undefined' ? document.title : '',
           durationMs,
         }),
       })
     } catch (error) {
       console.error('Error tracking page exit:', error)
     }
-  }, [getSessionData, hasTrackedPageView, pageLoadTime, pathname])
+  }, [getSessionData, hasTrackedPageView, pageLoadTime, pathname, isClient])
 
   // Setup click tracking
   const setupClickTracking = useCallback(() => {
+    if (!isClient) return () => {}
+    
     const handleClick = async (e: MouseEvent) => {
       // Only track clicks on interactive elements
       const target = e.target as HTMLElement
@@ -179,10 +191,12 @@ const AnalyticsContent = () => {
     return () => {
       document.removeEventListener('click', handleClick)
     }
-  }, [getSessionData, pathname])
+  }, [getSessionData, pathname, isClient])
 
   // Track page view when the path changes or on initial load
   useEffect(() => {
+    if (!isClient) return
+    
     setPageLoadTime(Date.now())
     setHasTrackedPageView(false)
     
@@ -195,10 +209,12 @@ const AnalyticsContent = () => {
       clearTimeout(trackingTimeout)
       trackPageExit()
     }
-  }, [pathname, searchParams, trackPageView, trackPageExit])
+  }, [pathname, searchParams, trackPageView, trackPageExit, isClient])
 
   // Setup click tracking when component mounts
   useEffect(() => {
+    if (!isClient) return
+    
     const cleanupClickTracking = setupClickTracking()
     
     // Setup visibility change tracking
@@ -227,16 +243,21 @@ const AnalyticsContent = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('beforeunload', handleBeforeUnload)
     }
-  }, [hasTrackedPageView, setupClickTracking, trackPageExit, trackPageView, setPageLoadTime])
+  }, [hasTrackedPageView, setupClickTracking, trackPageExit, trackPageView, setPageLoadTime, isClient])
 
   return null;
 }
 
-// Main provider component with Suspense boundary
+// Analytics fallback component for when suspense fails
+const AnalyticsFallback = () => {
+  return null;
+}
+
+// Main provider component with proper Suspense boundary
 const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
   return (
     <>
-      <Suspense fallback={null}>
+      <Suspense fallback={<AnalyticsFallback />}>
         <AnalyticsContent />
       </Suspense>
       {children}
