@@ -104,7 +104,7 @@ const Contact = () => {
       
       // Clear form and show success
       setFormData({ name: '', email: '', message: '' })
-      setSuccessMessage("Your message has been sent successfully! I'll get back to you soon to discuss ML opportunities.")
+      setSuccessMessage("Your message has been sent successfully! I&apos;ll get back to you soon to discuss ML opportunities.")
       setIsSubmitted(true)
       setTimeout(() => {
         setIsSubmitted(false)
@@ -139,16 +139,16 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-8 md:mb-12">Let's Build Something Amazing</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-8 md:mb-12">Let&apos;s Build Something Amazing</h2>
           
           <div className="max-w-md mx-auto">
             <div>
               <h3 className="text-xl font-bold mb-4 md:mb-6">Interested in ML Collaboration?</h3>
               
               <p className="text-gray-700 text-sm sm:text-base mb-6">
-                I'm passionate about leveraging machine learning to solve complex real-world problems. 
-                Whether you're looking to implement production ML systems, develop AI solutions, or discuss 
-                opportunities in computer vision, NLP, or MLOps, I'd love to connect.
+                I&apos;m passionate about leveraging machine learning to solve complex real-world problems. 
+                Whether you&apos;re looking to implement production ML systems, develop AI solutions, or discuss 
+                opportunities in computer vision, NLP, or MLOps, I&apos;d love to connect.
               </p>
 
               {/* Expertise highlights */}

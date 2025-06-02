@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 
 const projectsData = [
   {
@@ -112,8 +112,8 @@ const PortfolioProjects = () => {
           >
             <h3 className="text-2xl font-bold mb-4">Interested in ML Collaboration?</h3>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              I'm passionate about building production ML systems that solve real-world problems. 
-              Let's discuss how we can leverage AI to drive innovation in your organization.
+              I&apos;m passionate about building production ML systems that solve real-world problems. 
+              Let&apos;s discuss how we can leverage AI to drive innovation in your organization.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
