@@ -3,7 +3,7 @@
 
 import Script from 'next/script'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 
 // Extend the Window interface to include gtag
 declare global {
@@ -20,7 +20,8 @@ interface GoogleAnalyticsProps {
   measurementId: string
 }
 
-const GoogleAnalytics = ({ measurementId }: GoogleAnalyticsProps) => {
+// Separate component that uses useSearchParams
+const GoogleAnalyticsTracker = ({ measurementId }: GoogleAnalyticsProps) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -38,6 +39,10 @@ const GoogleAnalytics = ({ measurementId }: GoogleAnalyticsProps) => {
     }
   }, [pathname, searchParams, measurementId])
 
+  return null
+}
+
+const GoogleAnalytics = ({ measurementId }: GoogleAnalyticsProps) => {
   return (
     <>
       {/* Google Analytics Script */}
@@ -75,11 +80,16 @@ const GoogleAnalytics = ({ measurementId }: GoogleAnalyticsProps) => {
           `,
         }}
       />
+      
+      {/* Wrap the tracker component in Suspense */}
+      <Suspense fallback={null}>
+        <GoogleAnalyticsTracker measurementId={measurementId} />
+      </Suspense>
     </>
   )
 }
 
-// Helper functions for tracking custom events
+// Helper functions for tracking custom events (unchanged)
 export const trackEvent = (
   action: string,
   category: string,
