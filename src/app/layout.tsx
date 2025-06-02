@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { defaultMetadata } from '@/lib/seo'
 import { PersonStructuredData, WebsiteStructuredData } from '@/components/StructuredData'
-import ClientOnly from '@/components/ClientOnly'
 import AnalyticsProvider from '@/components/AnalyticsProvider'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 
@@ -27,6 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
+        {/* Google Site Verification - Direct Meta Tag */}
+        <meta name="google-site-verification" content="Kwls1AEOMQVWmjtUqTsisEAJIhijYEZXBdVQBOjQ9Yk" />
+        
         <link rel="canonical" href="https://ismat.pro" />
         {/* Preconnect to key domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,30 +42,19 @@ export default function RootLayout({
         )}
       </head>
       <body className={`bg-gray-50 text-gray-900 antialiased`}>
-        {/* Add structured data */}
-        <PersonStructuredData />
-        <WebsiteStructuredData />
-        
-        {/* Add structured data */}
-        <PersonStructuredData />
-        <WebsiteStructuredData />
-        
         {/* Add Google Analytics if measurement ID is provided */}
         {GA_MEASUREMENT_ID && (
-          <ClientOnly>
-            <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
-          </ClientOnly>
+          <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
         )}
         
-        {/* Add custom analytics provider wrapped in ClientOnly */}
-        <ClientOnly>
-          <AnalyticsProvider>
-            <></>
-          </AnalyticsProvider>
-        </ClientOnly>
+        {/* Add structured data */}
+        <PersonStructuredData />
+        <WebsiteStructuredData />
         
-        {/* Main content */}
-        {children}
+        {/* Add custom analytics provider */}
+        <AnalyticsProvider>
+          {children}
+        </AnalyticsProvider>
       </body>
     </html>
   )
