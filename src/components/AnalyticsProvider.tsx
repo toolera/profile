@@ -1,8 +1,8 @@
 // src/components/AnalyticsProvider.tsx
 'use client'
 
-import { useEffect, useState, useCallback, Suspense } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useEffect, useState, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { v4 as uuidv4 } from 'uuid'
 import Cookies from 'js-cookie'
 
@@ -10,21 +10,20 @@ interface AnalyticsProviderProps {
   children: React.ReactNode
 }
 
-const AnalyticsContent = () => {
+const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [pageLoadTime, setPageLoadTime] = useState<number>(Date.now())
   const [hasTrackedPageView, setHasTrackedPageView] = useState<boolean>(false)
-  const [isClient, setIsClient] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
-  // Ensure we're on the client side
+  // Ensure component is mounted before running analytics
   useEffect(() => {
-    setIsClient(true)
+    setIsMounted(true)
   }, [])
 
   // Get session data
   const getSessionData = useCallback(() => {
-    if (!isClient) return { sessionId: '', visitorId: '' }
+    if (!isMounted) return { sessionId: '', visitorId: '' }
     
     // Try to get session ID from cookie, or create a new one
     let sessionId = Cookies.get('session_id')
@@ -41,23 +40,36 @@ const AnalyticsContent = () => {
     }
     
     return { sessionId, visitorId }
-  }, [isClient])
+  }, [isMounted])
+
+  // Get UTM parameters from URL
+  const getUtmParams = useCallback(() => {
+    if (!isMounted || typeof window === 'undefined') return {}
+    
+    try {
+      const urlParams = new URLSearchParams(window.location.search)
+      return {
+        utmSource: urlParams.get('utm_source') || undefined,
+        utmMedium: urlParams.get('utm_medium') || undefined,
+        utmCampaign: urlParams.get('utm_campaign') || undefined,
+        utmTerm: urlParams.get('utm_term') || undefined,
+        utmContent: urlParams.get('utm_content') || undefined,
+      }
+    } catch {
+      return {}
+    }
+  }, [isMounted])
 
   // Track page view
   const trackPageView = useCallback(async () => {
-    if (!isClient) return
+    if (!isMounted || typeof window === 'undefined') return
     
     const { sessionId, visitorId } = getSessionData()
     
     if (!sessionId || !visitorId) return
     
     try {
-      // Get UTM parameters
-      const utmSource = searchParams?.get('utm_source') || undefined
-      const utmMedium = searchParams?.get('utm_medium') || undefined
-      const utmCampaign = searchParams?.get('utm_campaign') || undefined
-      const utmTerm = searchParams?.get('utm_term') || undefined
-      const utmContent = searchParams?.get('utm_content') || undefined
+      const utmParams = getUtmParams()
       
       // Get page title
       const pageTitle = document.title
@@ -84,11 +96,7 @@ const AnalyticsContent = () => {
           pagePath: pathname,
           pageTitle,
           referrer,
-          utmSource,
-          utmMedium,
-          utmCampaign,
-          utmTerm,
-          utmContent,
+          ...utmParams,
           userAgent: navigator.userAgent,
           screenResolution,
           language,
@@ -99,11 +107,11 @@ const AnalyticsContent = () => {
     } catch (error) {
       console.error('Error tracking page view:', error)
     }
-  }, [getSessionData, pathname, searchParams, isClient])
+  }, [getSessionData, getUtmParams, pathname, isMounted])
 
   // Track user leaving the page
   const trackPageExit = useCallback(async () => {
-    if (!hasTrackedPageView || !isClient) return
+    if (!hasTrackedPageView || !isMounted || typeof window === 'undefined') return
     
     const { sessionId } = getSessionData()
     const durationMs = Date.now() - pageLoadTime
@@ -125,11 +133,11 @@ const AnalyticsContent = () => {
     } catch (error) {
       console.error('Error tracking page exit:', error)
     }
-  }, [getSessionData, hasTrackedPageView, pageLoadTime, pathname, isClient])
+  }, [getSessionData, hasTrackedPageView, pageLoadTime, pathname, isMounted])
 
   // Setup click tracking
   const setupClickTracking = useCallback(() => {
-    if (!isClient) return () => {}
+    if (!isMounted || typeof window === 'undefined') return () => {}
     
     const handleClick = async (e: MouseEvent) => {
       // Only track clicks on interactive elements
@@ -193,11 +201,11 @@ const AnalyticsContent = () => {
     return () => {
       document.removeEventListener('click', handleClick)
     }
-  }, [getSessionData, pathname, isClient])
+  }, [getSessionData, pathname, isMounted])
 
   // Track page view when the path changes or on initial load
   useEffect(() => {
-    if (!isClient) return
+    if (!isMounted) return
     
     setPageLoadTime(Date.now())
     setHasTrackedPageView(false)
@@ -211,11 +219,11 @@ const AnalyticsContent = () => {
       clearTimeout(trackingTimeout)
       trackPageExit()
     }
-  }, [pathname, searchParams, trackPageView, trackPageExit, isClient])
+  }, [pathname, trackPageView, trackPageExit, isMounted])
 
   // Setup click tracking when component mounts
   useEffect(() => {
-    if (!isClient) return
+    if (!isMounted) return
     
     const cleanupClickTracking = setupClickTracking()
     
@@ -245,24 +253,9 @@ const AnalyticsContent = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('beforeunload', handleBeforeUnload)
     }
-  }, [hasTrackedPageView, setupClickTracking, trackPageExit, trackPageView, setPageLoadTime, isClient])
+  }, [hasTrackedPageView, setupClickTracking, trackPageExit, trackPageView, setPageLoadTime, isMounted])
 
-  return null;
-}
-
-// Fallback component for when Suspense is loading
-const AnalyticsFallback = () => null
-
-// Main provider component with proper Suspense boundary
-const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
-  return (
-    <>
-      <Suspense fallback={<AnalyticsFallback />}>
-        <AnalyticsContent />
-      </Suspense>
-      {children}
-    </>
-  )
+  return <>{children}</>
 }
 
 export default AnalyticsProvider
