@@ -13,7 +13,12 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-export const metadata: Metadata = defaultMetadata;
+export const metadata: Metadata = {
+  ...defaultMetadata,
+  verification: {
+    google: 'Kwls1AEOMQVWmjtUqTsisEAJIhijYEZXBdVQBOjQ9Yk',
+  },
+}
 
 export default function RootLayout({
   children,
@@ -26,10 +31,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
-        {/* Google Site Verification - Direct Meta Tag */}
-        <meta name="google-site-verification" content="Kwls1AEOMQVWmjtUqTsisEAJIhijYEZXBdVQBOjQ9Yk" />
-        
-        <link rel="canonical" href="https://ismat.pro" />
         {/* Preconnect to key domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

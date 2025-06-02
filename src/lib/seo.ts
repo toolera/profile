@@ -234,7 +234,7 @@ export const defaultMetadata: Metadata = {
   },
   manifest: '/site.webmanifest',
   verification: {
-    google: 'Kwls1AEOMQVWmjtUqTsisEAJIhijYEZXBdVQBOjQ9Yk', // Added your Google site verification
+    google: 'Kwls1AEOMQVWmjtUqTsisEAJIhijYEZXBdVQBOjQ9Yk', // Added Google site verification
     yandex: 'yandex-verification-id', 
   },
   alternates: {
