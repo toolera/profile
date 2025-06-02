@@ -4,39 +4,39 @@ import { motion } from 'framer-motion'
 
 const experienceData = [
   {
-    title: 'SQL Developer',
+    title: 'SQL Developer & ML Engineer',
     company: 'Kapital Bank',
     period: 'Feb 2023 - Present',
     responsibilities: [
-      'Developing and optimizing SQL queries and stored procedures for fraud detection systems',
-      'Creating and maintaining database schemas for transaction monitoring and analytics',
-      'Implementing data extraction and transformation processes for financial reporting',
-      'Building automated SQL-based data pipelines to support analytical requirements',
-      'Collaborating with cross-functional teams to translate business requirements into SQL solutions'
+      'Developing machine learning systems for fraud detection and risk assessment using SQL-based feature engineering and model deployment',
+      'Building automated ML pipelines for transaction monitoring and anomaly detection with real-time inference capabilities',
+      'Implementing data extraction and transformation processes for financial ML models and predictive analytics',
+      'Creating production-ready stored procedures and database optimization for high-throughput ML feature serving',
+      'Collaborating with data science teams to deploy enterprise ML solutions meeting Basel III and IFRS 9 compliance requirements'
     ]
   },
   {
-    title: 'Business Analytics',
+    title: 'Business Analytics & Data Science',
     company: 'Unibank',
     period: 'Dec 2021 - Feb 2023',
     responsibilities: [
-      'Designed analytical reports and dashboards for tracking key business metrics and KPIs',
-      'Conducted in-depth data analysis to identify trends and opportunities in customer behavior',
-      'Developed SQL queries to extract and process data for business intelligence reporting',
-      'Created data visualizations to communicate insights to business stakeholders',
-      'Collaborated with department heads to establish metrics and reporting frameworks'
+      'Developed predictive models and machine learning solutions for customer behavior analysis and business intelligence',
+      'Built automated reporting systems and ML-powered dashboards for tracking key performance indicators and customer metrics',
+      'Implemented advanced analytics using SQL and statistical methods to identify patterns in large-scale financial datasets',
+      'Created data preprocessing pipelines and feature engineering frameworks for business intelligence and predictive modeling',
+      'Designed A/B testing frameworks and statistical analysis methods to measure business impact of ML-driven initiatives'
     ]
   },
   {
-    title: 'Underwriter',
+    title: 'Risk Analyst & Data Specialist',
     company: 'Unibank',
     period: 'Sep 2019 - Dec 2021',
     responsibilities: [
-      'Evaluated consumer loan applications using established credit policies and risk guidelines',
-      'Analyzed applicant financial data and credit histories to make informed lending decisions',
-      'Prepared detailed reports on loan portfolio performance and risk metrics',
-      'Identified trends in application data to improve underwriting processes',
-      'Collaborated with fraud prevention teams to verify application information'
+      'Applied statistical methods and early ML techniques for credit risk assessment and loan portfolio optimization',
+      'Developed data analysis frameworks for evaluating applicant profiles using feature engineering and risk scoring models',
+      'Built automated reporting systems for loan performance tracking and risk metric calculation',
+      'Implemented data quality checks and validation procedures for ML model inputs and credit decision systems',
+      'Collaborated with fraud prevention teams on data analysis and pattern recognition for application verification'
     ]
   }
 ]
@@ -66,6 +66,27 @@ const Experience = () => {
               />
             ))}
           </div>
+
+          {/* Add ML Projects Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg"
+          >
+            <h3 className="text-xl font-bold text-primary mb-4">Independent ML Engineering Projects</h3>
+            <p className="text-gray-700 mb-4">
+              Actively developing production-ready machine learning systems and contributing to open-source AI projects:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700">
+              <li><strong>Healthcare AI Systems:</strong> Built chest cancer detection and medical imaging analysis platforms</li>
+              <li><strong>Computer Vision:</strong> Developed tree disease detection using YOLOv8 with 93.3% mAP50 accuracy</li>
+              <li><strong>NLP Engineering:</strong> Created Azerbaijani language processing tools and custom NER systems</li>
+              <li><strong>Financial ML:</strong> Implemented probability of default models and customer lifetime value prediction engines</li>
+              <li><strong>MLOps Frameworks:</strong> Built intelligent agent systems and automated ML pipeline architectures</li>
+            </ul>
+          </motion.div>
         </motion.div>
       </div>
     </section>

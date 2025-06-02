@@ -21,21 +21,21 @@ const Hero = () => {
             <span className="text-primary">Ismat</span> Samadov
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl font-medium mb-4 text-gray-700">
-            Machine Learning Engineer & Analytics Professional
+            Machine Learning Engineer & AI Systems Developer
           </p>
           <p className="text-md sm:text-lg font-medium mb-6 text-gray-700">
-            SQL | Data Analysis | Aspiring Machine Learning Specialist
+            Production ML Systems | Computer Vision | NLP | MLOps
           </p>
 
           {/* Description - improved text size and spacing */}
           <div className="mb-8">
             <p className="text-gray-600 mb-3 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
-              Combining strong SQL database skills with a passion for data analysis and machine learning
-              to extract meaningful insights from complex datasets.
+              Building scalable AI systems and production-ready ML pipelines with expertise in computer vision, 
+              natural language processing, and end-to-end model deployment across banking and healthcare sectors.
             </p>
             <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
-              Currently focusing on developing ML skills through self-study and practical projects,
-              while applying analytical expertise to solve real business challenges.
+              Currently developing enterprise ML solutions at Kapital Bank while creating open-source 
+              AI frameworks and contributing to low-resource language processing for Azerbaijani NLP.
             </p>
           </div>
 
@@ -47,11 +47,11 @@ const Hero = () => {
             className="flex flex-col sm:flex-row justify-center items-center gap-4"
           >
             <a
-              href="#experience"
+              href="#projects"
               className="w-full sm:w-auto inline-block bg-primary text-white font-medium py-3 px-6 rounded-md shadow-md hover:bg-blue-600 transition-colors text-center"
-              aria-label="View my professional experience"
+              aria-label="View my ML projects and systems"
             >
-              View My Experience
+              View ML Projects
             </a>
 
             <DownloadButton

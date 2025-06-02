@@ -33,7 +33,7 @@ export function generatePageMetadata({
   datePublished,
   dateModified,
   contentType = 'WebPage',
-  section = 'Technology',
+  section = 'Machine Learning',
   articleTags = [],
   isAmp = false
 }: PageSEOProps): Metadata {
@@ -50,21 +50,40 @@ export function generatePageMetadata({
   const defaultKeywords = [
     'Ismat Samadov',
     'Machine Learning Engineer',
-    'Data Scientist',
-    'SQL Developer',
-    'Deep Learning',
-    'Natural Language Processing',
-    'Computer Vision',
-    'Predictive Analytics',
+    'AI Systems Developer',
+    'Computer Vision Engineer',
+    'NLP Engineer',
+    'MLOps Engineer',
+    'Production ML Systems',
     'TensorFlow',
     'PyTorch',
-    'Python Developer',
-    'ML Operations',
-    'Data Engineering',
-    'Big Data Analytics',
-    'Machine Learning Models',
+    'Deep Learning',
+    'Neural Networks',
+    'YOLOv8',
+    'Transformers',
+    'Medical AI',
+    'Financial ML',
+    'Fraud Detection',
+    'Named Entity Recognition',
+    'Azerbaijani NLP',
+    'Healthcare AI',
+    'Real-time ML',
+    'Model Deployment',
+    'FastAPI',
+    'Docker',
+    'Kubernetes',
+    'Feature Engineering',
+    'Data Pipelines',
+    'SQL Optimization',
+    'Enterprise AI',
+    'Basel III ML',
+    'Regulatory Compliance',
     'Azerbaijan Tech',
-    'Baku Developer'
+    'Baku AI Engineer',
+    'ML Infrastructure',
+    'Model Optimization',
+    'Edge AI',
+    'AI Research'
   ];
   
   const mergedKeywords = [...new Set([...defaultKeywords, ...keywords])];
@@ -93,7 +112,7 @@ export function generatePageMetadata({
     title,
     description,
     url,
-    siteName: 'Ismat Samadov | Machine Learning Engineer',
+    siteName: 'Ismat Samadov | Machine Learning Engineer & AI Systems Developer',
     locale: 'en_US',
     type: contentType === 'BlogPosting' || contentType === 'TechArticle' ? 'article' : 'website',
     images: [{
@@ -159,19 +178,6 @@ export function generatePageMetadata({
       telephone: false,
       address: false,
     },
-    appLinks: {
-      ios: {
-        url: `https://ismat.pro${pagePath}`,
-        app_store_id: 'app-id',
-      },
-      android: {
-        package: 'com.ismat.pro',
-        url: `https://ismat.pro${pagePath}`,
-      },
-    },
-    archives: ['https://ismat.pro/archives'],
-    assets: ['https://ismat.pro/assets'],
-    bookmarks: ['https://ismat.pro/bookmarks'],
     other: {
       'format-detection': 'telephone=no',
       'revisit-after': '7 days',
@@ -188,19 +194,19 @@ export function generatePageMetadata({
 export const defaultMetadata: Metadata = {
   title: {
     template: '%s | Ismat Samadov',
-    default: 'Ismat Samadov | Machine Learning Engineer & Analytics Professional',
+    default: 'Ismat Samadov | Machine Learning Engineer & AI Systems Developer',
   },
-  description: 'Professional portfolio of Ismat Samadov, a Machine Learning Engineer & Analytics Professional specializing in deep learning, predictive modeling, and building end-to-end ML solutions. Expertise in SQL, data analysis, and machine learning applications.',
+  description: 'Machine Learning Engineer specializing in production AI systems, computer vision, NLP, and MLOps. Building scalable ML solutions for healthcare, finance, and enterprise applications. Expert in TensorFlow, PyTorch, and end-to-end model deployment.',
   metadataBase: new URL('https://ismat.pro'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Ismat Samadov | Machine Learning Engineer & Analytics Professional',
+    siteName: 'Ismat Samadov | Machine Learning Engineer & AI Systems Developer',
     images: [{
       url: '/og-image.jpg',
       width: 1200,
       height: 630,
-      alt: 'Ismat Samadov - Machine Learning Engineer & Analytics Professional',
+      alt: 'Ismat Samadov - Machine Learning Engineer & AI Systems Developer',
     }],
   },
   twitter: {
@@ -230,7 +236,6 @@ export const defaultMetadata: Metadata = {
   verification: {
     google: 'google-site-verification-id', 
     yandex: 'yandex-verification-id', 
-    // bing: 'msvalidate.01:verification-id', 
   },
   alternates: {
     canonical: 'https://ismat.pro',
@@ -247,7 +252,7 @@ export const defaultMetadata: Metadata = {
   archives: ['https://ismat.pro/archives'],
   assets: ['https://ismat.pro/assets'],
   bookmarks: ['https://ismat.pro/bookmarks'],
-  category: 'Technology',
+  category: 'Machine Learning',
   formatDetection: {
     email: false,
     telephone: false,
@@ -260,264 +265,4 @@ export const defaultMetadata: Metadata = {
     'msapplication-config': '/browserconfig.xml',
     'theme-color': '#0070f3',
   },
-};
-
-/**
- * Generate Schema.org structured data for a person
- */
-export const generatePersonSchema = () => {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Ismat Samadov',
-    description: 'Machine Learning Engineer & Analytics Professional specializing in deep learning, NLP, computer vision, and predictive analytics',
-    url: 'https://ismat.pro',
-    image: 'https://ismat.pro/images/ismat-samadov.jpg', // Add your profile photo
-    jobTitle: 'Machine Learning Engineer',
-    gender: 'Male',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Baku',
-      addressRegion: 'Baku',
-      addressCountry: 'Azerbaijan'
-    },
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Kapital Bank',
-      url: 'https://kapitalbank.az'
-    },
-    alumniOf: [
-      {
-        '@type': 'CollegeOrUniversity',
-        name: 'Azerbaijan State University of Economics',
-        url: 'https://unec.edu.az/'
-      },
-      {
-        '@type': 'CollegeOrUniversity',
-        name: 'Mingachevir State University',
-        url: 'https://mdu.edu.az/'
-      },
-    ],
-    hasCredential: [
-      {
-        '@type': 'EducationalOccupationalCredential',
-        name: 'Oracle Database SQL Certified Associate',
-        credentialCategory: 'Certification',
-        recognizedBy: {
-          '@type': 'Organization',
-          name: 'Oracle',
-          url: 'https://www.oracle.com'
-        },
-        validFor: 'Lifetime',
-        dateCreated: '2022-05'
-      }
-    ],
-    sameAs: [
-      'https://github.com/Ismat-Samadov',
-      'https://huggingface.co/IsmatS',
-      'https://www.kaggle.com/ismetsemedov',
-      'https://www.hackerrank.com/profile/IsmatSamadov',
-      'https://medium.com/@ismatsamadov',
-      'https://leetcode.com/u/ismetsemedov/',
-      'https://www.linkedin.com/in/ismat-samadov/'
-    ],
-    knowsAbout: [
-      'Machine Learning',
-      'Deep Learning',
-      'Natural Language Processing',
-      'Computer Vision',
-      'Time Series Analysis',
-      'Python Programming',
-      'TensorFlow',
-      'PyTorch',
-      'Feature Engineering',
-      'ML Operations',
-      'SQL Development',
-      'Database Optimization',
-      'ETL Processes',
-      'Data Analytics',
-      'Predictive Modeling'
-    ],
-    knowsLanguage: [
-      {
-        '@type': 'Language',
-        name: 'English',
-        alternateName: 'en'
-      },
-      {
-        '@type': 'Language',
-        name: 'Azerbaijani',
-        alternateName: 'az'
-      },
-      {
-        '@type': 'Language',
-        name: 'Russian',
-        alternateName: 'ru'
-      }
-    ],
-    email: 'mailto:ismetsemedov@gmail.com',
-    telephone: '+994-XXX-XXX-XXXX'  // Add your phone if you want it public
-  };
-};
-
-/**
- * Generate Schema.org structured data for a software project
- */
-export const generateProjectSchema = (
-  name: string,
-  description: string,
-  url: string,
-  repoUrl: string,
-  imageUrl: string,
-  datePublished: string,
-  dateModified: string,
-  programmingLanguages: string[],
-  keywords: string[],
-  author: string = 'Ismat Samadov'
-) => {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareSourceCode',
-    name,
-    description,
-    url,
-    image: imageUrl.startsWith('http') ? imageUrl : `https://ismat.pro${imageUrl}`,
-    datePublished,
-    dateModified,
-    author: {
-      '@type': 'Person',
-      name: author,
-      url: 'https://ismat.pro'
-    },
-    programmingLanguage: programmingLanguages.join(', '),
-    keywords: keywords.join(', '),
-    codeRepository: repoUrl,
-    codeSampleType: 'full',
-    runtimePlatform: 'Web',
-    targetProduct: {
-      '@type': 'SoftwareApplication',
-      name,
-      applicationCategory: 'DataApplication',
-      operatingSystem: 'Web'
-    }
-  };
-};
-
-/**
- * Generate Schema.org structured data for a blog post
- */
-export const generateBlogPostSchema = (
-  title: string,
-  description: string,
-  url: string,
-  imageUrl: string,
-  datePublished: string,
-  dateModified: string,
-  author: string = 'Ismat Samadov',
-  keywords: string[] = [],
-  articleBody: string = ''
-) => {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url
-    },
-    headline: title,
-    description,
-    image: imageUrl.startsWith('http') ? imageUrl : `https://ismat.pro${imageUrl}`,
-    datePublished,
-    dateModified,
-    author: {
-      '@type': 'Person',
-      name: author,
-      url: 'https://ismat.pro'
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: author,
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://ismat.pro/logo.png',
-        width: 600,
-        height: 60
-      }
-    },
-    keywords: keywords.join(', '),
-    articleBody: articleBody.substring(0, 5000), // Limit to 5000 chars
-    wordCount: articleBody.split(/\s+/).length,
-    inLanguage: 'en-US'
-  };
-};
-
-/**
- * Generate Schema.org structured data for website
- */
-export const generateWebsiteSchema = () => {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Ismat Samadov | Machine Learning Engineer & Analytics Professional',
-    alternateName: 'Ismat Samadov Portfolio',
-    url: 'https://ismat.pro',
-    description: 'Professional portfolio of Ismat Samadov, a Machine Learning Engineer specializing in deep learning, NLP, computer vision, and predictive analytics',
-    inLanguage: ['en-US', 'az-AZ', 'ru-RU'],
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://ismat.pro/search?q={search_term_string}'
-      },
-      'query-input': 'required name=search_term_string'
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Ismat Samadov',
-      url: 'https://ismat.pro'
-    },
-    copyrightYear: new Date().getFullYear(),
-    copyrightHolder: {
-      '@type': 'Person',
-      name: 'Ismat Samadov'
-    }
-  };
-};
-
-/**
- * Generate breadcrumb schema for structured data
- */
-export const generateBreadcrumbSchema = (
-  items: Array<{name: string, url: string}>
-) => {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: item.url
-    }))
-  };
-};
-
-/**
- * Generate FAQ schema for structured data
- */
-export const generateFAQSchema = (
-  questions: Array<{question: string, answer: string}>
-) => {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: questions.map(q => ({
-      '@type': 'Question',
-      name: q.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: q.answer
-      }
-    }))
-  };
 };

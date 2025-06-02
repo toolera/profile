@@ -104,7 +104,7 @@ const Contact = () => {
       
       // Clear form and show success
       setFormData({ name: '', email: '', message: '' })
-      setSuccessMessage("Your message has been sent successfully! I'll get back to you soon.")
+      setSuccessMessage("Your message has been sent successfully! I'll get back to you soon to discuss ML opportunities.")
       setIsSubmitted(true)
       setTimeout(() => {
         setIsSubmitted(false)
@@ -119,7 +119,7 @@ const Contact = () => {
       // Fallback message if the API fails
       setSuccessMessage(
         "While there was an issue with our contact system, " +
-        "you can reach me directly at ismetsemedov@gmail.com."
+        "you can reach me directly at ismetsemedov@gmail.com to discuss ML collaboration opportunities."
       )
       setIsSubmitted(true)
       
@@ -139,16 +139,30 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-8 md:mb-12">Get In Touch</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-8 md:mb-12">Let's Build Something Amazing</h2>
           
           <div className="max-w-md mx-auto">
             <div>
-              <h3 className="text-xl font-bold mb-4 md:mb-6">Send a Message</h3>
+              <h3 className="text-xl font-bold mb-4 md:mb-6">Interested in ML Collaboration?</h3>
               
               <p className="text-gray-700 text-sm sm:text-base mb-6">
-                Feel free to reach out if you&apos;re looking for a professional with expertise in machine learning, 
-                predictive modeling, and AI solutions. I&apos;m open to new opportunities and collaborations.
+                I'm passionate about leveraging machine learning to solve complex real-world problems. 
+                Whether you're looking to implement production ML systems, develop AI solutions, or discuss 
+                opportunities in computer vision, NLP, or MLOps, I'd love to connect.
               </p>
+
+              {/* Expertise highlights */}
+              <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                <h4 className="font-semibold text-sm mb-2">What I Can Help With:</h4>
+                <ul className="text-xs space-y-1 text-gray-700">
+                  <li>• Production ML system design and deployment</li>
+                  <li>• Computer vision and medical imaging AI</li>
+                  <li>• NLP and language model development</li>
+                  <li>• Financial ML and regulatory compliance</li>
+                  <li>• MLOps infrastructure and automation</li>
+                  <li>• Custom AI solutions for your domain</li>
+                </ul>
+              </div>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -164,6 +178,7 @@ const Contact = () => {
                     className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                       errors.name ? 'border-red-500' : 'border-gray-300'
                     }`}
+                    placeholder="Your name or organization"
                   />
                   {errors.name && (
                     <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center">
@@ -186,6 +201,7 @@ const Contact = () => {
                     className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
+                    placeholder="your.email@company.com"
                   />
                   {errors.email && (
                     <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center">
@@ -197,7 +213,7 @@ const Contact = () => {
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Message
+                    Project Details
                   </label>
                   <textarea
                     id="message"
@@ -208,6 +224,7 @@ const Contact = () => {
                     className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                       errors.message ? 'border-red-500' : 'border-gray-300'
                     }`}
+                    placeholder="Tell me about your ML project, business challenge, or collaboration opportunity. What problem are you looking to solve with AI?"
                   />
                   {errors.message && (
                     <p className="text-red-500 text-xs sm:text-sm mt-1 flex items-center">
@@ -222,7 +239,7 @@ const Contact = () => {
                   disabled={isSubmitting}
                   className="w-full bg-primary text-white font-medium py-3 px-6 rounded-md shadow-md hover:bg-blue-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? 'Sending...' : 'Start the Conversation'}
                 </button>
                 
                 {error && !isSubmitted && (
@@ -237,6 +254,16 @@ const Contact = () => {
                   </div>
                 )}
               </form>
+
+              {/* Alternative contact methods */}
+              <div className="mt-6 text-center text-sm text-gray-600">
+                <p>Prefer direct contact?</p>
+                <p className="mt-1">
+                  <a href="mailto:ismetsemedov@gmail.com" className="text-primary hover:underline">
+                    ismetsemedov@gmail.com
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
