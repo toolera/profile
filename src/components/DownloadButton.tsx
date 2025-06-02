@@ -3,13 +3,14 @@
 
 import { FaDownload } from 'react-icons/fa'
 import { useCallback } from 'react'
+import { trackDownload } from '@/components/GoogleAnalytics'
 
 interface DownloadButtonProps {
   filePath: string
   label: string
   className?: string
   variant?: 'primary' | 'secondary'
-  documentType?: 'cv' | 'certificate' | 'other' // New prop to identify document type
+  documentType?: 'cv' | 'certificate' | 'other'
 }
 
 const DownloadButton = ({ 
@@ -19,12 +20,12 @@ const DownloadButton = ({
   variant = 'primary',
   documentType = 'other'
 }: DownloadButtonProps) => {
-  // Function to track download events
-  const trackDownload = useCallback(async () => {
+  // Function to track download events in both systems
+  const trackDownloadEvent = useCallback(async () => {
+    const fileName = filePath.split('/').pop() || 'unknown-file'
+    
     try {
-      const fileName = filePath.split('/').pop() || 'unknown-file'
-      
-      // Track the download event
+      // Track in custom analytics system
       await fetch('/api/analytics/track', {
         method: 'POST',
         headers: {
@@ -38,6 +39,10 @@ const DownloadButton = ({
           pagePath: window.location.pathname
         }),
       })
+      
+      // Track in Google Analytics
+      trackDownload(fileName, documentType)
+      
     } catch (error) {
       // Silently fail - don't block the download if tracking fails
       console.error('Error tracking download:', error)
@@ -48,7 +53,7 @@ const DownloadButton = ({
     <a 
       href={filePath}
       download
-      onClick={trackDownload}
+      onClick={trackDownloadEvent}
       className={`inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors ${
         variant === 'primary' 
           ? 'bg-primary text-white hover:bg-blue-600 py-2 px-4 shadow-md' 

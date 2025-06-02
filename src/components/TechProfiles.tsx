@@ -1,8 +1,10 @@
+// src/components/TechProfiles.tsx
 'use client'
 
 import { motion } from 'framer-motion'
 import { FaGithub, FaKaggle } from 'react-icons/fa'
 import { SiHackerrank, SiLeetcode, SiHuggingface, SiMedium } from 'react-icons/si'
+import { trackTechProfileClick } from '@/components/GoogleAnalytics'
 
 const profilesData = [
   {
@@ -83,11 +85,17 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({ platform, url, icon, username, index }: ProfileCardProps) => {
+  const handleClick = () => {
+    // Track in Google Analytics
+    trackTechProfileClick(platform)
+  }
+
   return (
     <motion.a 
       href={url}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
