@@ -49,8 +49,10 @@ const AnalyticsContent = () => {
     
     const { sessionId, visitorId } = getSessionData()
     
+    if (!sessionId || !visitorId) return
+    
     try {
-      // Get UTM parameters safely
+      // Get UTM parameters
       const utmSource = searchParams?.get('utm_source') || undefined
       const utmMedium = searchParams?.get('utm_medium') || undefined
       const utmCampaign = searchParams?.get('utm_campaign') || undefined
@@ -58,16 +60,16 @@ const AnalyticsContent = () => {
       const utmContent = searchParams?.get('utm_content') || undefined
       
       // Get page title
-      const pageTitle = typeof document !== 'undefined' ? document.title : ''
+      const pageTitle = document.title
 
       // Get referrer
-      const referrer = typeof document !== 'undefined' ? document.referrer : ''
+      const referrer = document.referrer
       
       // Get screen resolution
-      const screenResolution = typeof window !== 'undefined' ? `${window.screen.width}x${window.screen.height}` : ''
+      const screenResolution = `${window.screen.width}x${window.screen.height}`
       
       // Get language
-      const language = typeof navigator !== 'undefined' ? navigator.language : ''
+      const language = navigator.language
       
       // Send data to the API endpoint
       await fetch('/api/analytics/track', {
@@ -87,7 +89,7 @@ const AnalyticsContent = () => {
           utmCampaign,
           utmTerm,
           utmContent,
-          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+          userAgent: navigator.userAgent,
           screenResolution,
           language,
         }),
@@ -116,7 +118,7 @@ const AnalyticsContent = () => {
           sessionId,
           eventType: 'page_exit',
           pagePath: pathname,
-          pageTitle: typeof document !== 'undefined' ? document.title : '',
+          pageTitle: document.title,
           durationMs,
         }),
       })
@@ -248,10 +250,8 @@ const AnalyticsContent = () => {
   return null;
 }
 
-// Analytics fallback component for when suspense fails
-const AnalyticsFallback = () => {
-  return null;
-}
+// Fallback component for when Suspense is loading
+const AnalyticsFallback = () => null
 
 // Main provider component with proper Suspense boundary
 const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
