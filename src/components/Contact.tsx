@@ -270,16 +270,6 @@ const Contact = () => {
                   </div>
                 )}
               </form>
-
-              {/* Alternative contact methods */}
-              <div className="mt-6 text-center text-sm text-gray-600">
-                <p>Prefer direct contact?</p>
-                <p className="mt-1">
-                  <a href="mailto:ismetsemedov@gmail.com" className="text-primary hover:underline">
-                    ismetsemedov@gmail.com
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
         </motion.div>
