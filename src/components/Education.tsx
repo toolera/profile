@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FaGraduationCap, FaExternalLinkAlt, FaCertificate } from 'react-icons/fa'
+import { FaGraduationCap, FaExternalLinkAlt, FaCertificate, FaChevronDown, FaChevronUp } from 'react-icons/fa'
+import { useState } from 'react'
 import DownloadButton from './DownloadButton'
 
 const educationData = [
@@ -21,7 +22,7 @@ const educationData = [
   }
 ]
 
-const certificationData = [
+const featuredCertificationData = [
   {
     title: 'Oracle Database SQL Certified Associate',
     issuer: 'Oracle',
@@ -32,6 +33,89 @@ const certificationData = [
     description: 'Advanced SQL optimization and database design for ML feature engineering and data pipelines.'
   }
 ]
+
+const additionalCertifications = {
+  'Kaggle': {
+    color: 'from-blue-500 to-cyan-500',
+    icon: '🏆',
+    description: 'Machine Learning & Data Science Micro-Courses',
+    certificates: [
+      { name: 'Advanced SQL', file: '/certificates/kaggle/Ismat Samadov - Advanced SQL.png' },
+      { name: 'Computer Vision', file: '/certificates/kaggle/Ismat Samadov - Computer Vision.png' },
+      { name: 'Data Cleaning', file: '/certificates/kaggle/Ismat Samadov - Data Cleaning.png' },
+      { name: 'Data Visualization', file: '/certificates/kaggle/Ismat Samadov - Data Visualization.png' },
+      { name: 'Feature Engineering', file: '/certificates/kaggle/Ismat Samadov - Feature Engineering.png' },
+      { name: 'Geospatial Analysis', file: '/certificates/kaggle/Ismat Samadov - Geospatial Analysis.png' },
+      { name: 'Intermediate Machine Learning', file: '/certificates/kaggle/Ismat Samadov - Intermediate Machine Learning.png' },
+      { name: 'Intro to Deep Learning', file: '/certificates/kaggle/Ismat Samadov - Intro to Deep Learning.png' },
+      { name: 'Game AI and Reinforcement Learning', file: '/certificates/kaggle/Ismat Samadov - Intro to Game AI and Reinforcement Learning.png' },
+      { name: 'Intro to Machine Learning', file: '/certificates/kaggle/Ismat Samadov - Intro to Machine Learning.png' },
+      { name: 'Intro to Programming', file: '/certificates/kaggle/Ismat Samadov - Intro to Programming.png' },
+      { name: 'Intro to SQL', file: '/certificates/kaggle/Ismat Samadov - Intro to SQL.png' },
+      { name: 'Pandas', file: '/certificates/kaggle/Ismat Samadov - Pandas.png' },
+      { name: 'Python', file: '/certificates/kaggle/Ismat Samadov - Python.png' },
+      { name: 'Time Series', file: '/certificates/kaggle/Ismat Samadov - Time Series.png' }
+    ]
+  },
+  'Udemy': {
+    color: 'from-purple-500 to-pink-500',
+    icon: '📚',
+    description: 'Comprehensive Online Courses',
+    certificates: [
+      { name: 'Algebra Fundamentals', file: '/certificates/udemy/udemy-algebra.pdf' },
+      { name: 'Calculus', file: '/certificates/udemy/udemy-calculus.pdf' },
+      { name: 'Data Science Complete Course', file: '/certificates/udemy/udemy-data-science.pdf' },
+      { name: 'Django Web Development', file: '/certificates/udemy/udemy-django.pdf' },
+      { name: 'Data Science Bootcamp', file: '/certificates/udemy/udemy-ds.pdf' },
+      { name: 'GitHub Mastery', file: '/certificates/udemy/udemy-github.pdf' },
+      { name: 'iOS Development', file: '/certificates/udemy/udemy-ios.pdf' },
+      { name: 'Java Masterclass', file: '/certificates/udemy/udemy-java-mc.pdf' },
+      { name: 'Java Programming', file: '/certificates/udemy/udemy-java.pdf' },
+      { name: 'Machine Learning A-Z', file: '/certificates/udemy/udemy-machine-learning.pdf' },
+      { name: 'PL/SQL Programming', file: '/certificates/udemy/udemy-pl_sql.pdf' },
+      { name: 'PL/SQL Advanced', file: '/certificates/udemy/udemy-plsql.pdf' },
+      { name: 'Power BI Mastery', file: '/certificates/udemy/udemy-powerbi.pdf' },
+      { name: 'Probability & Statistics', file: '/certificates/udemy/udemy-probablity.pdf' },
+      { name: 'Python Bootcamp', file: '/certificates/udemy/udemy-python.pdf' },
+      { name: 'React Development', file: '/certificates/udemy/udemy-react.pdf' },
+      { name: 'Rust Programming', file: '/certificates/udemy/udemy-rust.pdf' },
+      { name: 'Scrum Methodology', file: '/certificates/udemy/udemy-scrum.pdf' },
+      { name: 'SQL Mastery', file: '/certificates/udemy/udemy-sql.pdf' },
+      { name: 'Time Series Analysis', file: '/certificates/udemy/udemy-time-series.pdf' },
+      { name: 'Web Scraping', file: '/certificates/udemy/udemy-web-scrap.pdf' },
+      { name: 'Web Scraping Advanced', file: '/certificates/udemy/udemy-websscrping.pdf' }
+    ]
+  },
+  'HackerRank': {
+    color: 'from-green-500 to-emerald-500',
+    icon: '💻',
+    description: 'Programming Skills Assessment',
+    certificates: [
+      { name: 'Java Basic', file: '/certificates/hackerrank/hackerrank-java-basic.png' },
+      { name: 'Python', file: '/certificates/hackerrank/hackerrank-python.pdf' },
+      { name: 'SQL Basic', file: '/certificates/hackerrank/hackerrank-sql-basic.png' }
+    ]
+  },
+  'Data So Cool': {
+    color: 'from-orange-500 to-red-500',
+    icon: '📊',
+    description: 'Data Analytics & Visualization',
+    certificates: [
+      { name: 'Power BI', file: '/certificates/data-so-cool/datasocool-powerbi.pdf' },
+      { name: 'Python for Data', file: '/certificates/data-so-cool/datasocool-python.pdf' },
+      { name: 'SQL for Data', file: '/certificates/data-so-cool/datasocool-sql.pdf' }
+    ]
+  },
+  'Others': {
+    color: 'from-gray-500 to-slate-600',
+    icon: '🎯',
+    description: 'Specialized Certifications',
+    certificates: [
+      { name: 'Dataiku Core Designer', file: '/certificates/others/dataiku-core-designer.pdf' },
+      { name: 'Hyperskill Java', file: '/certificates/others/hyperskill-java.pdf' }
+    ]
+  }
+}
 
 const mlLearningData = [
   {
@@ -100,7 +184,7 @@ const Education = () => {
                 Professional Certifications
               </h3>
               <div className="space-y-4 md:space-y-6">
-                {certificationData.map((cert, index) => (
+                {featuredCertificationData.map((cert, index) => (
                   <CertificationItem 
                     key={index}
                     title={cert.title}
@@ -113,6 +197,9 @@ const Education = () => {
                     index={index}
                   />
                 ))}
+                
+                {/* Additional Certifications */}
+                <AdditionalCertificationsSection />
               </div>
             </div>
           </div>
@@ -279,6 +366,121 @@ const MLLearningItem = ({ title, platform, focus, achievements, index }: MLLearn
           ))}
         </ul>
       </div>
+    </motion.div>
+  )
+}
+
+const AdditionalCertificationsSection = () => {
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({})
+  const [showAll, setShowAll] = useState(false)
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }))
+  }
+
+  const totalCertificates = Object.values(additionalCertifications).reduce(
+    (sum, category) => sum + category.certificates.length, 0
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="bg-white rounded-lg shadow-md p-4 md:p-6"
+    >
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h4 className="text-base md:text-lg font-bold mb-1">Additional Certifications</h4>
+          <p className="text-sm text-gray-600">{totalCertificates} certificates across 5 platforms</p>
+        </div>
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="flex items-center gap-2 text-primary hover:text-primary-dark transition-colors text-sm font-medium"
+        >
+          {showAll ? 'Hide All' : 'View All'}
+          {showAll ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+      </div>
+
+      {showAll && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-4"
+        >
+          {Object.entries(additionalCertifications).map(([platform, data]) => (
+            <div key={platform} className="border border-gray-200 rounded-lg overflow-hidden">
+              <button
+                onClick={() => toggleSection(platform)}
+                className={`w-full px-4 py-3 bg-gradient-to-r ${data.color} text-white flex items-center justify-between hover:opacity-90 transition-opacity`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">{data.icon}</span>
+                  <div className="text-left">
+                    <h5 className="font-semibold">{platform}</h5>
+                    <p className="text-xs opacity-90">{data.description}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs bg-white/20 px-2 py-1 rounded">
+                    {data.certificates.length} certs
+                  </span>
+                  {expandedSections[platform] ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
+              </button>
+              
+              {expandedSections[platform] && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="p-4 bg-gray-50"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {data.certificates.map((cert, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2, delay: index * 0.05 }}
+                        className="bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <h6 className="font-medium text-sm mb-2 text-gray-800">{cert.name}</h6>
+                        <DownloadButton 
+                          filePath={cert.file}
+                          label="Download"
+                          variant="secondary"
+                          className="text-xs py-1 px-2 w-full"
+                          documentType="certificate"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          ))}
+          
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+            className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg text-center"
+          >
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold text-primary">{totalCertificates} certificates</span> completed across multiple platforms,
+              demonstrating continuous learning and skill development in ML, data science, and software engineering.
+            </p>
+          </motion.div>
+        </motion.div>
+      )}
     </motion.div>
   )
 }
