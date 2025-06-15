@@ -27,7 +27,7 @@ const certificationData = [
     issuer: 'Oracle',
     id: '290631207OCASQL12C',
     date: 'May 2022',
-    pdfUrl: 'public/certificates/others/OCA.pdf',
+    pdfUrl: '/public/certificates/others/OCA.pdf',
     verificationUrl: 'https://catalog-education.oracle.com/apex/f?p=1010:2:100683567337903::::P2_AUTHCODE,P2_AUTH_KEY,P2_ARG_INVALID_CNT:Ph156118hV47D,cOpJB156046UbeO4312onHs,0',
     description: 'Advanced SQL optimization and database design for ML feature engineering and data pipelines.'
   }
