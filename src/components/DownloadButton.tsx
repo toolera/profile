@@ -49,20 +49,29 @@ const DownloadButton = ({
     }
   }, [filePath, documentType])
 
+  const getButtonStyles = () => {
+    if (variant === 'primary') {
+      return 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transform hover:scale-105 py-2 px-4'
+    }
+    
+    // For certificates and secondary buttons, make them more attractive
+    if (documentType === 'certificate') {
+      return 'bg-gradient-to-r from-emerald-500 to-green-600 text-white hover:from-emerald-600 hover:to-green-700 shadow-md hover:shadow-lg transform hover:scale-105 py-2 px-3'
+    }
+    
+    return 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300 border border-gray-300 shadow-sm hover:shadow-md transform hover:scale-105 py-2 px-3'
+  }
+
   return (
     <a 
       href={filePath}
       download
       onClick={trackDownloadEvent}
-      className={`inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors ${
-        variant === 'primary' 
-          ? 'bg-primary text-white hover:bg-blue-600 py-2 px-4 shadow-md' 
-          : 'bg-gray-100 text-gray-800 hover:bg-gray-200 py-2 px-3'
-      } ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 ${getButtonStyles()} ${className}`}
       data-track={`download-${documentType}`}
     >
-      <FaDownload className={variant === 'primary' ? 'text-white' : 'text-gray-600'} />
-      <span>{label}</span>
+      <FaDownload className={`${variant === 'primary' || documentType === 'certificate' ? 'text-white' : 'text-gray-600'} text-sm`} />
+      <span className="text-sm font-semibold">{label}</span>
     </a>
   )
 }
