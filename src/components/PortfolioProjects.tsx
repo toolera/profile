@@ -5,14 +5,6 @@ import { FaGithub } from 'react-icons/fa'
 
 const projectsData = [
   {
-    title: 'Chest Cancer Detection Platform',
-    githubUrl: 'https://github.com/Ismat-Samadov/chest_cancer_detection',
-    description: 'Medical imaging AI system using DenseNet121 with attention mechanisms for chest cancer detection. Features automated DICOM preprocessing, model serving infrastructure, and web-based diagnostic interface with explainable AI capabilities.',
-    tags: ['Computer Vision', 'Medical AI', 'DenseNet121', 'DICOM Processing'],
-    metrics: '94.2% Accuracy',
-    category: 'Healthcare AI'
-  },
-  {
     title: 'Tree Disease Detection System', 
     githubUrl: 'https://github.com/Ismat-Samadov/crop_desease_detection',
     description: 'YOLOv8-based real-time agricultural disease detection achieving 93.3% mAP50 on UAV imagery. Includes optimized inference pipeline, REST API deployment, and automated model retraining with performance monitoring.',
@@ -29,44 +21,12 @@ const projectsData = [
     category: 'Natural Language Processing'
   },
   {
-    title: 'Enterprise PD Scoring API',
-    githubUrl: 'https://github.com/Ismat-Samadov/probability_default',
-    description: 'Production-grade Probability of Default system with Basel III & IFRS 9 compliance. Multi-segment ML models with sub-100ms latency, batch processing capabilities, and comprehensive monitoring dashboard.',
-    tags: ['Financial ML', 'Risk Modeling', 'Basel III', 'Production API'],
-    metrics: '<100ms Latency',
-    category: 'Financial ML'
-  },
-  {
-    title: 'Azerbaijani GPT Implementation',
-    githubUrl: 'https://github.com/Ismat-Samadov/GPT',
-    description: 'Transformer-based language model trained on Azerbaijani Wikipedia corpus. Features custom tokenization, inference optimization, and distributed training pipeline with model performance tracking.',
-    tags: ['Language Models', 'Transformers', 'Custom Training', 'Azerbaijani NLP'],
-    metrics: 'Custom LM',
-    category: 'Language Models'
-  },
-  {
     title: 'Intelligent Agent Framework',
     githubUrl: 'https://github.com/Ismat-Samadov/agent_implementation',
     description: 'Production-ready framework for intelligent agents with containerized deployment. Implements multiple agent types (Simple Reflex, Model-Based, Utility-Based, Q-Learning) with interactive visualization.',
     tags: ['AI Agents', 'Reinforcement Learning', 'Framework Design', 'Containerization'],
     metrics: 'Multi-Agent System',
     category: 'AI Systems'
-  },
-  {
-    title: 'Real-time Fraud Detection',
-    githubUrl: 'https://github.com/Ismat-Samadov/fraud_detection',
-    description: 'Streaming ML system for transaction fraud detection with adaptive learning. Features synthetic data generation, real-time feature engineering, and anomaly detection with low-latency inference.',
-    tags: ['Fraud Detection', 'Streaming ML', 'Anomaly Detection', 'Real-time Systems'],
-    metrics: '99.5% Accuracy',
-    category: 'Financial ML'
-  },
-  {
-    title: 'CLV Prediction Engine',
-    githubUrl: 'https://github.com/Ismat-Samadov/clv_model',
-    description: 'Scalable Customer Lifetime Value prediction using gradient boosting algorithms. Includes automated feature engineering, A/B testing framework, and real-time model serving with drift detection.',
-    tags: ['Customer Analytics', 'Gradient Boosting', 'MLOps', 'A/B Testing'],
-    metrics: 'Enterprise Scale',
-    category: 'Business Intelligence'
   }
 ]
 
