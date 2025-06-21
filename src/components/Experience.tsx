@@ -43,7 +43,7 @@ const experienceData = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-16 md:py-20 bg-white">
+    <section id="experience" className="py-16 md:py-20 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -73,13 +73,13 @@ const Experience = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg"
+            className="mt-12 p-6 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg"
           >
-            <h3 className="text-xl font-bold text-primary mb-4">Independent ML Engineering Projects</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-xl font-bold text-white mb-4">Independent ML Engineering Projects</h3>
+            <p className="text-blue-100 mb-4">
               Actively developing production-ready machine learning systems and contributing to open-source AI projects:
             </p>
-            <ul className="list-disc pl-5 space-y-2 text-gray-700">
+            <ul className="list-disc pl-5 space-y-2 text-blue-100">
               <li><strong>Healthcare AI Systems:</strong> Built chest cancer detection and medical imaging analysis platforms</li>
               <li><strong>Computer Vision:</strong> Developed tree disease detection using YOLOv8 with 93.3% mAP50 accuracy</li>
               <li><strong>NLP Engineering:</strong> Created Azerbaijani language processing tools and custom NER systems</li>
@@ -106,16 +106,25 @@ const ExperienceItem = ({ title, company, period, responsibilities, index }: Exp
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02, x: 10 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="timeline-item"
+      className="timeline-item bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 group"
     >
-      <div className="timeline-date">{period}</div>
-      <h3 className="timeline-title">{title}</h3>
-      <h4 className="timeline-subtitle">{company}</h4>
+      <div className="timeline-date text-indigo-600 font-semibold">{period}</div>
+      <h3 className="timeline-title group-hover:text-indigo-700 transition-colors">{title}</h3>
+      <h4 className="timeline-subtitle text-indigo-600">{company}</h4>
       <ul className="list-disc pl-4 md:pl-5 space-y-1 md:space-y-2 mt-3">
         {responsibilities.map((item, i) => (
-          <li key={i} className="timeline-content text-sm md:text-base">{item}</li>
+          <motion.li 
+            key={i} 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1 + i * 0.05 }}
+            className="timeline-content text-sm md:text-base group-hover:text-gray-800 transition-colors"
+          >
+            {item}
+          </motion.li>
         ))}
       </ul>
     </motion.div>

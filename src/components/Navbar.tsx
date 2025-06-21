@@ -22,16 +22,22 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+      isScrolled ? 'bg-white/80 backdrop-blur-md shadow-lg py-2' : 'bg-transparent py-4'
     }`}>
       <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold text-primary z-20">
-          Ismat Samadov <span className="hidden sm:inline text-gray-700 font-normal text-sm">ML Engineer</span>
+        <Link href="/" className={`text-xl font-bold z-20 transition-colors duration-300 ${
+          isScrolled ? 'text-primary' : 'text-white drop-shadow-lg'
+        }`}>
+          Ismat Samadov <span className={`hidden sm:inline font-normal text-sm transition-colors duration-300 ${
+            isScrolled ? 'text-gray-700' : 'text-white/80'
+          }`}>ML Engineer</span>
         </Link>
         
         {/* Mobile menu button - improved z-index */}
         <button 
-          className="md:hidden text-gray-700 focus:outline-none z-20"
+          className={`md:hidden focus:outline-none z-20 transition-colors duration-300 ${
+            isScrolled ? 'text-gray-700' : 'text-white'
+          }`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -75,12 +81,23 @@ const Navbar = () => {
 }
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <Link 
       href={href}
-      className="text-gray-700 hover:text-primary transition-colors font-medium"
+      className={`font-medium transition-all duration-300 hover:scale-105 relative group ${
+        isScrolled ? 'text-gray-700 hover:text-primary' : 'text-white/90 hover:text-white'
+      }`}
     >
       {children}
+      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
     </Link>
   )
 }
