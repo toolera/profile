@@ -11,6 +11,7 @@ const educationData = [
     degree: 'Master of Business Administration (MBA)',
     field: 'Artificial Intelligence',
     period: 'Current',
+    location: 'Baku, Azerbaijan',
     description: 'Advanced studies in AI applications for business, machine learning systems design, and enterprise AI strategy.'
   },
   {
@@ -18,6 +19,7 @@ const educationData = [
     degree: 'Bachelor',
     field: 'Management of Industry',
     period: '2012 - 2016',
+    location: 'Mingachevir, Azerbaijan',
     description: 'Foundation in business management with focus on process optimization and analytical thinking.'
   }
 ]
@@ -170,6 +172,7 @@ const Education = () => {
                     degree={edu.degree}
                     field={edu.field}
                     period={edu.period}
+                    location={edu.location}
                     description={edu.description}
                     index={index}
                   />
@@ -261,11 +264,12 @@ interface EducationItemProps {
   degree: string
   field: string
   period: string
+  location: string
   description: string
   index: number
 }
 
-const EducationItem = ({ institution, degree, field, period, description, index }: EducationItemProps) => {
+const EducationItem = ({ institution, degree, field, period, location, description, index }: EducationItemProps) => {
   const getLogoPath = (institutionName: string) => {
     if (institutionName.includes('Mingachevir')) return '/logo/mdu.jpg'
     if (institutionName.includes('Azerbaijan State University of Economics')) return '/logo/unec.jpeg'
@@ -293,7 +297,7 @@ const EducationItem = ({ institution, degree, field, period, description, index 
         <div className="flex-1">
           <h4 className="text-base md:text-lg font-bold mb-1">{institution}</h4>
           <p className="text-primary font-medium text-sm md:text-base">{degree} • {field}</p>
-          <p className="text-gray-600 text-xs md:text-sm mt-2">{period}</p>
+          <p className="text-gray-600 text-xs md:text-sm mt-2">{period} • {location}</p>
           <p className="text-gray-700 text-sm mt-2">{description}</p>
         </div>
       </div>

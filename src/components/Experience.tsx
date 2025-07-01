@@ -7,6 +7,7 @@ const experienceData = [
     title: 'SQL Developer & ML Engineer',
     company: 'Kapital Bank',
     period: 'Feb 2023 - Present',
+    location: 'Baku, Azerbaijan',
     responsibilities: [
       'Developing machine learning systems for fraud detection and risk assessment using SQL-based feature engineering and model deployment',
       'Building automated ML pipelines for transaction monitoring and anomaly detection with real-time inference capabilities',
@@ -19,6 +20,7 @@ const experienceData = [
     title: 'Business Analytics & Data Science',
     company: 'Unibank',
     period: 'Dec 2021 - Feb 2023',
+    location: 'Baku, Azerbaijan',
     responsibilities: [
       'Developed predictive models and machine learning solutions for customer behavior analysis and business intelligence',
       'Built automated reporting systems and ML-powered dashboards for tracking key performance indicators and customer metrics',
@@ -31,6 +33,7 @@ const experienceData = [
     title: 'Risk Analyst & Data Specialist',
     company: 'Unibank',
     period: 'Sep 2019 - Dec 2021',
+    location: 'Baku, Azerbaijan',
     responsibilities: [
       'Applied statistical methods and early ML techniques for credit risk assessment and loan portfolio optimization',
       'Developed data analysis frameworks for evaluating applicant profiles using feature engineering and risk scoring models',
@@ -61,6 +64,7 @@ const Experience = () => {
                 title={job.title}
                 company={job.company}
                 period={job.period}
+                location={job.location}
                 responsibilities={job.responsibilities}
                 index={index}
               />
@@ -97,11 +101,12 @@ interface ExperienceItemProps {
   title: string
   company: string
   period: string
+  location: string
   responsibilities: string[]
   index: number
 }
 
-const ExperienceItem = ({ title, company, period, responsibilities, index }: ExperienceItemProps) => {
+const ExperienceItem = ({ title, company, period, location, responsibilities, index }: ExperienceItemProps) => {
   const getLogoPath = (companyName: string) => {
     if (companyName.toLowerCase().includes('kapital')) return '/logo/birbank.png'
     if (companyName.toLowerCase().includes('unibank')) return '/logo/unibank.jpeg'
@@ -119,7 +124,7 @@ const ExperienceItem = ({ title, company, period, responsibilities, index }: Exp
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="timeline-item bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 group"
     >
-      <div className="timeline-date text-indigo-600 font-semibold">{period}</div>
+      <div className="timeline-date text-indigo-600 font-semibold">{period} • {location}</div>
       <div className="flex items-start gap-4">
         {logoPath && (
           <img 
