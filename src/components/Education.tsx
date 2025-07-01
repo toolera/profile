@@ -266,6 +266,14 @@ interface EducationItemProps {
 }
 
 const EducationItem = ({ institution, degree, field, period, description, index }: EducationItemProps) => {
+  const getLogoPath = (institutionName: string) => {
+    if (institutionName.includes('Mingachevir')) return '/logo/mdu.jpg'
+    if (institutionName.includes('Azerbaijan State University of Economics')) return '/logo/unec.jpeg'
+    return null
+  }
+
+  const logoPath = getLogoPath(institution)
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -274,10 +282,21 @@ const EducationItem = ({ institution, degree, field, period, description, index 
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow"
     >
-      <h4 className="text-base md:text-lg font-bold mb-1">{institution}</h4>
-      <p className="text-primary font-medium text-sm md:text-base">{degree} • {field}</p>
-      <p className="text-gray-600 text-xs md:text-sm mt-2">{period}</p>
-      <p className="text-gray-700 text-sm mt-2">{description}</p>
+      <div className="flex items-start gap-4">
+        {logoPath && (
+          <img 
+            src={logoPath} 
+            alt={`${institution} logo`}
+            className="w-12 h-12 object-contain rounded-md flex-shrink-0 mt-1"
+          />
+        )}
+        <div className="flex-1">
+          <h4 className="text-base md:text-lg font-bold mb-1">{institution}</h4>
+          <p className="text-primary font-medium text-sm md:text-base">{degree} • {field}</p>
+          <p className="text-gray-600 text-xs md:text-sm mt-2">{period}</p>
+          <p className="text-gray-700 text-sm mt-2">{description}</p>
+        </div>
+      </div>
     </motion.div>
   )
 }
@@ -294,6 +313,13 @@ interface CertificationItemProps {
 }
 
 const CertificationItem = ({ title, issuer, id, date, description, pdfUrl, verificationUrl, index }: CertificationItemProps) => {
+  const getLogoPath = (issuerName: string) => {
+    if (issuerName.toLowerCase().includes('oracle')) return '/logo/oracle.jpeg'
+    return null
+  }
+
+  const logoPath = getLogoPath(issuer)
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -302,13 +328,22 @@ const CertificationItem = ({ title, issuer, id, date, description, pdfUrl, verif
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow"
     >
-      <h4 className="text-base md:text-lg font-bold mb-1">{title}</h4>
-      <p className="text-primary font-medium text-sm md:text-base">{issuer}</p>
-      <p className="text-gray-600 text-xs md:text-sm mt-2">ID: {id}</p>
-      <p className="text-gray-600 text-xs md:text-sm">Issued: {date}</p>
-      <p className="text-gray-700 text-sm mt-2">{description}</p>
-      
-      <div className="mt-3 md:mt-4 flex flex-wrap gap-2">
+      <div className="flex items-start gap-4">
+        {logoPath && (
+          <img 
+            src={logoPath} 
+            alt={`${issuer} logo`}
+            className="w-12 h-12 object-contain rounded-md flex-shrink-0 mt-1"
+          />
+        )}
+        <div className="flex-1">
+          <h4 className="text-base md:text-lg font-bold mb-1">{title}</h4>
+          <p className="text-primary font-medium text-sm md:text-base">{issuer}</p>
+          <p className="text-gray-600 text-xs md:text-sm mt-2">ID: {id}</p>
+          <p className="text-gray-600 text-xs md:text-sm">Issued: {date}</p>
+          <p className="text-gray-700 text-sm mt-2">{description}</p>
+          
+          <div className="mt-3 md:mt-4 flex flex-wrap gap-2">
         {pdfUrl && (
           <DownloadButton 
             filePath={pdfUrl}
@@ -329,6 +364,8 @@ const CertificationItem = ({ title, issuer, id, date, description, pdfUrl, verif
             Verify Certificate <FaExternalLinkAlt className="ml-1 text-xs" />
           </a>
         )}
+          </div>
+        </div>
       </div>
     </motion.div>
   )

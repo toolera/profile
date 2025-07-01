@@ -102,6 +102,14 @@ interface ExperienceItemProps {
 }
 
 const ExperienceItem = ({ title, company, period, responsibilities, index }: ExperienceItemProps) => {
+  const getLogoPath = (companyName: string) => {
+    if (companyName.toLowerCase().includes('kapital')) return '/logo/birbank.png'
+    if (companyName.toLowerCase().includes('unibank')) return '/logo/unibank.jpeg'
+    return null
+  }
+
+  const logoPath = getLogoPath(company)
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -112,21 +120,32 @@ const ExperienceItem = ({ title, company, period, responsibilities, index }: Exp
       className="timeline-item bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 group"
     >
       <div className="timeline-date text-indigo-600 font-semibold">{period}</div>
-      <h3 className="timeline-title group-hover:text-indigo-700 transition-colors">{title}</h3>
-      <h4 className="timeline-subtitle text-indigo-600">{company}</h4>
-      <ul className="list-disc pl-4 md:pl-5 space-y-1 md:space-y-2 mt-3">
-        {responsibilities.map((item, i) => (
-          <motion.li 
-            key={i} 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 + i * 0.05 }}
-            className="timeline-content text-sm md:text-base group-hover:text-gray-800 transition-colors"
-          >
-            {item}
-          </motion.li>
-        ))}
-      </ul>
+      <div className="flex items-start gap-4">
+        {logoPath && (
+          <img 
+            src={logoPath} 
+            alt={`${company} logo`}
+            className="w-16 h-16 object-contain rounded-lg flex-shrink-0 mt-2 bg-white/50 p-2"
+          />
+        )}
+        <div className="flex-1">
+          <h3 className="timeline-title group-hover:text-indigo-700 transition-colors">{title}</h3>
+          <h4 className="timeline-subtitle text-indigo-600">{company}</h4>
+          <ul className="list-disc pl-4 md:pl-5 space-y-1 md:space-y-2 mt-3">
+            {responsibilities.map((item, i) => (
+              <motion.li 
+                key={i} 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 + i * 0.05 }}
+                className="timeline-content text-sm md:text-base group-hover:text-gray-800 transition-colors"
+              >
+                {item}
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </motion.div>
   )
 }
