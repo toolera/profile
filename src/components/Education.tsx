@@ -103,6 +103,7 @@ const additionalCertifications = {
     icon: '📊',
     description: 'Data Analytics & Visualization',
     certificates: [
+      { name: 'Excel for Data', file: '/certificates/data-so-cool/datasocool-excell.pdf' },
       { name: 'Power BI', file: '/certificates/data-so-cool/datasocool-powerbi.pdf' },
       { name: 'Python for Data', file: '/certificates/data-so-cool/datasocool-python.pdf' },
       { name: 'SQL for Data', file: '/certificates/data-so-cool/datasocool-sql.pdf' }
