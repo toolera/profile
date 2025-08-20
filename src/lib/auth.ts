@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Simple admin credentials - in production, store these securely
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD_HASH = '$2a$12$LQv3c1yqBWVHxkd0LQ4YCOJa57dDd0rBLRm8lMHOFB5o4bKZjJQG6'; // 'admin123'
+// Admin credentials from environment variables
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
 
 export interface AuthResult {
   success: boolean;
@@ -11,6 +11,10 @@ export interface AuthResult {
 }
 
 export async function validateAdminCredentials(username: string, password: string): Promise<AuthResult> {
+  if (!ADMIN_USERNAME || !ADMIN_PASSWORD_HASH) {
+    return { success: false, message: 'Admin credentials not configured' };
+  }
+
   if (username !== ADMIN_USERNAME) {
     return { success: false, message: 'Invalid credentials' };
   }
