@@ -77,7 +77,7 @@ export function BlogListStructuredData({
     publisher: {
       '@type': 'Person',
       name: 'Ismat Samadov',
-      url: 'https://ismatsamadov.com'
+      url: 'https://ismat.pro'
     }
   };
 
