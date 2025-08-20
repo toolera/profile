@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Admin credentials from environment variables
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
+// Admin credentials - temporarily hardcoded due to env var issues
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD_HASH = '$2a$12$BQDFrIE4s0bWwZSinaoNYu672OGAV8eDRlQfo1Y/q7IXVcRoWmAJS';
 
 export interface AuthResult {
   success: boolean;
