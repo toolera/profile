@@ -79,6 +79,6 @@ export async function deleteBook(id: number): Promise<boolean> {
       DELETE FROM public.books 
       WHERE id = ${id};
     `;
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   });
 }

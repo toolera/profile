@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Book } from '@/lib/books';
 
 interface BookFormProps {
-  book?: Book;
+  book?: Book | null;
   onSubmit: (data: {
     bookName: string;
     author: string;
