@@ -6,7 +6,7 @@ const experienceData = [
   {
     title: 'SQL Developer & ML Engineer',
     company: 'Kapital Bank',
-    period: 'Feb 2023 - Present',
+    period: 'Feb 2023 - Sep 2025',
     location: 'Baku, Azerbaijan',
     responsibilities: [
       'Developing machine learning systems for fraud detection and risk assessment using SQL-based feature engineering and model deployment',
