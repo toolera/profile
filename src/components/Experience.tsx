@@ -8,6 +8,8 @@ const experienceData = [
     company: 'Kapital Bank',
     period: 'Feb 2023 - Sep 2025',
     location: 'Baku, Azerbaijan',
+    jobType: 'Full Time',
+    workMode: 'Onsite',
     responsibilities: [
       'Developing machine learning systems for fraud detection and risk assessment using SQL-based feature engineering and model deployment',
       'Building automated ML pipelines for transaction monitoring and anomaly detection with real-time inference capabilities',
@@ -21,6 +23,8 @@ const experienceData = [
     company: 'Unibank',
     period: 'Dec 2021 - Feb 2023',
     location: 'Baku, Azerbaijan',
+    jobType: 'Full Time',
+    workMode: 'Onsite',
     responsibilities: [
       'Developed predictive models and machine learning solutions for customer behavior analysis and business intelligence',
       'Built automated reporting systems and ML-powered dashboards for tracking key performance indicators and customer metrics',
@@ -34,6 +38,8 @@ const experienceData = [
     company: 'Unibank',
     period: 'Sep 2019 - Dec 2021',
     location: 'Baku, Azerbaijan',
+    jobType: 'Full Time',
+    workMode: 'Onsite',
     responsibilities: [
       'Applied statistical methods and early ML techniques for credit risk assessment and loan portfolio optimization',
       'Developed data analysis frameworks for evaluating applicant profiles using feature engineering and risk scoring models',
@@ -59,12 +65,14 @@ const Experience = () => {
           
           <div className="space-y-10 md:space-y-12">
             {experienceData.map((job, index) => (
-              <ExperienceItem 
+              <ExperienceItem
                 key={index}
                 title={job.title}
                 company={job.company}
                 period={job.period}
                 location={job.location}
+                jobType={job.jobType}
+                workMode={job.workMode}
                 responsibilities={job.responsibilities}
                 index={index}
               />
@@ -102,11 +110,13 @@ interface ExperienceItemProps {
   company: string
   period: string
   location: string
+  jobType: string
+  workMode: string
   responsibilities: string[]
   index: number
 }
 
-const ExperienceItem = ({ title, company, period, location, responsibilities, index }: ExperienceItemProps) => {
+const ExperienceItem = ({ title, company, period, location, jobType, workMode, responsibilities, index }: ExperienceItemProps) => {
   const getLogoPath = (companyName: string) => {
     if (companyName.toLowerCase().includes('kapital')) return '/logo/birbank.png'
     if (companyName.toLowerCase().includes('unibank')) return '/logo/unibank.jpeg'
@@ -124,7 +134,7 @@ const ExperienceItem = ({ title, company, period, location, responsibilities, in
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="timeline-item bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 group"
     >
-      <div className="timeline-date text-indigo-600 font-semibold">{period} • {location}</div>
+      <div className="timeline-date text-indigo-600 font-semibold">{period} • {location} • {jobType} • {workMode}</div>
       <div className="flex items-start gap-4">
         {logoPath && (
           <img 
