@@ -79,26 +79,6 @@ const Experience = () => {
             ))}
           </div>
 
-          {/* Add ML Projects Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 p-6 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg"
-          >
-            <h3 className="text-xl font-bold text-white mb-4">Independent ML Engineering Projects</h3>
-            <p className="text-blue-100 mb-4">
-              Actively developing production-ready machine learning systems and contributing to open-source AI projects:
-            </p>
-            <ul className="list-disc pl-5 space-y-2 text-blue-100">
-              <li><strong>Healthcare AI Systems:</strong> Built chest cancer detection and medical imaging analysis platforms</li>
-              <li><strong>Computer Vision:</strong> Developed tree disease detection using YOLOv8 with 93.3% mAP50 accuracy</li>
-              <li><strong>NLP Engineering:</strong> Created Azerbaijani language processing tools and custom NER systems</li>
-              <li><strong>Financial ML:</strong> Implemented probability of default models and customer lifetime value prediction engines</li>
-              <li><strong>MLOps Frameworks:</strong> Built intelligent agent systems and automated ML pipeline architectures</li>
-            </ul>
-          </motion.div>
         </motion.div>
       </div>
     </section>
